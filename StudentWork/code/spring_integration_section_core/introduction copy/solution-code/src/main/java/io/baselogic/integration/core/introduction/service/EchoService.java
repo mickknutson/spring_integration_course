@@ -11,12 +11,10 @@ public class EchoService {
 
     /**
      * Converted from:
-     *
      * <service-activator input-channel="inputChannel"
      * 	                   output-channel="outputChannel"
      * 	                   ref="echoService"
      * 	                   method="echo"/>
-     *
      * @param inboundPayload
      */
     @ServiceActivator(inputChannel = "inputChannel",
@@ -29,5 +27,10 @@ public class EchoService {
 	    // TODO: Convert to String parse
 		return "Echo: [" + inboundPayload + "]";
 	}
+
+
+
+
+
 
 } // The End...

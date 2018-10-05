@@ -27,17 +27,36 @@
 - https://projectlombok.org/setup/intellij
 
 
-
-TBD...
-
-
-
-
 ## TO REVISIT
 
 
-    Create Submodule for common code in this repo:
-    - https://git-scm.com/book/en/v2/Git-Tools-Submodules
+Channels:
+
+    DirectChannel
+    PriorityChannel
+    QueueChannel
+    ExecutorChannel
+    PublishSubscribeChannel
+
+Sending Messages
+
+    @Publisher
+
+    @MessageEndpoint
+    @InboundChannelAdapter
+    @ServiceActivator
+
+
+What is this for?
+
+    @IntegrationComponentScan ??
+
+@Transformer
+
+What is this for:
+
+    @Poller
+
 
 
 

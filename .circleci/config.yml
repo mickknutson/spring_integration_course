@@ -1,0 +1,223 @@
+##---------------------------------------------------------------------------##
+# Spring Integration Master Class
+##---------------------------------------------------------------------------##
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+# TO Revisit:
+# https://github.com/AnySoftKeyboard/AnySoftKeyboard/blob/master/circle.yml
+##---------------------------------------------------------------------------##
+version: 2
+jobs:
+##---------------------------------------------------------------------------##
+  build:
+
+    working_directory: ~/tmp/workspace
+
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      BASE_DIR: "./StudentWork/code"
+    
+#    # Not sure if parallelism will work well for this project
+#    parallelism: 4
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          BASE_DIR: "./StudentWork/code"
+          _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+
+    steps:
+      - checkout
+      - run:
+          name: Initialize
+          command: |
+            set -xu
+            echo $CIRCLE_WORKING_DIRECTORY
+            mkdir -p ~/junit/
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "./StudentWork/code/pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Cache Maven Dependencies
+          command: mvn dependency:resolve -PcodeQuality
+          working_directory: ./StudentWork/code
+      - save_cache:
+          paths:
+#            - /root/project/.m2
+            - $CIRCLE_WORKING_DIRECTORY/.m2
+          key: v1-dependencies-{{ checksum "./StudentWork/code/pom.xml" }}
+#      - persist_to_workspace:
+#          root: /root/project
+#          paths: /root/project/.m2
+
+
+##---------------------------------------------------------------------------##
+  build_core:
+
+    working_directory: ~/tmp/workspace
+
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      BASE_DIR: "./StudentWork/code"
+        
+#    # Not sure if parallelism will work well for this project
+#    parallelism: 4
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          BASE_DIR: "./StudentWork/code"
+          _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+
+    steps:
+      - checkout
+      - run:
+          name: Initialize
+          command: |
+            set -xu
+            echo $CIRCLE_WORKING_DIRECTORY
+            mkdir -p ~/junit/
+#      - attach_workspace:
+#          at: /root/project
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "./StudentWork/code/pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Verify the SECTION CORE module
+          command: mvn verify
+          working_directory: ./StudentWork/code/spring_integration_section_core
+
+
+##---------------------------------------------------------------------------##
+##---------------------------------------------------------------------------##
+##---------------------------------------------------------------------------##
+  code_quality:
+
+    working_directory: ~/tmp/workspace
+
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      BASE_DIR: "./StudentWork/code"
+    
+#    # Not sure if parallelism will work well for this project
+#    parallelism: 4
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          BASE_DIR: "./StudentWork/code"
+          _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+
+    steps:
+      - checkout
+      - run:
+          name: Initialize
+          command: |
+            set -xu
+            echo $CIRCLE_WORKING_DIRECTORY
+            mkdir -p ~/junit/
+      - run:
+          name: Verify the Project with codeQuality
+          command: mvn verify -PcodeQuality
+          working_directory: ./StudentWork/code
+      - run:
+          name: Sonar Cloud Scan
+          command: mvn sonar:sonar -Dsonar.projectKey=mickknutson_spring_integration_course -Dsonar.login=$SONAR_LOGIN
+          working_directory: ./StudentWork/code
+      - run:
+          name: Save test results
+          command: |
+            set -xu
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+      - run:
+          name: Save Coverage results
+          command: |
+            set -xu
+            find . -type f -regex ".*/target/jacoco/jacoco.xml" -exec cp {} ~/junit/ \;
+            bash <(curl -s https://codecov.io/bash)
+      - store_test_results:
+          name: Storing test results
+          path: ~/junit
+      - store_artifacts:
+          name: Storing Artifacts
+          path: ~/junit
+
+##---------------------------------------------------------------------------##
+  end_course:
+
+    working_directory: ~/tmp/workspace
+
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      BASE_DIR: "./StudentWork/code"
+    
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          BASE_DIR: "./StudentWork/code"
+          _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+
+    steps:
+      - run:
+          name: listing after Storing test results
+          command: |
+            set -xu
+            ls -la
+      - run:
+          name: END or Workflow
+          command: |
+            set -xu
+            echo 'COMPLETE'
+
+##---------------------------------------------------------------------------##
+workflows:
+  version: 2
+  build_each_module:
+    jobs:
+      - build
+      - build_core:
+          requires:
+            - build
+#      - build_inputs:
+#          requires:
+#            - build
+#      - build_outputs:
+#          requires:
+#            - build
+#      - build_flows:
+#          requires:
+#            - build
+#      - build_scaling:
+#          requires:
+#            - build
+#      - build_orchestration:
+#          requires:
+#            - build
+            
+            
+      - code_quality:
+          requires:
+            - build
+      - end_course:
+          requires:
+            - build_core
+#            - build_inputs
+#            - build_outputs
+#            - build_flows
+#            - build_orchestration
+#            - build_scaling
+            - code_quality
+
+##---------------------------------------------------------------------------##
+## The End... ##
+##---------------------------------------------------------------------------##
