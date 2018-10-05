@@ -1,0 +1,607 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+    <groupId>com.baselogic.integration</groupId>
+    <artifactId>spring_integration_parent</artifactId>
+    <version>1.0.0.RELEASE</version>
+
+    <name>${project.artifactId}</name>
+    <description>Spring integration Course</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- Maven properties -->
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <versions-maven-plugin.version>2.6</versions-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+
+        <sonar-maven-plugin.version>3.3.0.603</sonar-maven-plugin.version>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>mickknutson-github</sonar.organization>
+        <sonar.java.spotbugs.reportPaths>./target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
+
+        <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+
+        <spotbugs-maven-plugin.version>3.1.6</spotbugs-maven-plugin.version>
+        <spotbugs.version>3.1.6</spotbugs.version>
+
+        <!-- Spring properties -->
+        <spring-boot-starter-integration.version>5.1.0.BUILD-SNAPSHOT</spring-boot-starter-integration.version>
+        <spring-framework-bom.version>5.1.0.RELEASE</spring-framework-bom.version>
+        <spring-integration-bom.version>5.1.0.RC1</spring-integration-bom.version>
+
+        <spring-cloud-netflix.version>2.0.1.RELEASE</spring-cloud-netflix.version>
+        <spring-boot-admin.version>2.0.2</spring-boot-admin.version>
+        <!--<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>-->
+        <spring-cloud.version>Finchley.SR1</spring-cloud.version>
+
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.0.M4</version>
+<!--        <version>2.1.0.BUILD-SNAPSHOT</version>-->
+    </parent>
+
+    <modules>
+        <module>spring_integration_section_core</module>
+<!--        <module>spring_batch_section_inputs</module>-->
+<!--        <module>spring_batch_section_outputs</module>-->
+<!--        <module>spring_batch_section_flow</module>-->
+<!--        <module>spring_batch_section_processing</module>-->
+<!--        <module>spring_batch_section_error_handling</module>-->
+<!--        <module>spring_batch_section_orchestration</module>-->
+<!--        <module>spring_batch_section_scaling</module>-->
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!--<dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>5.1.0.RELEASE</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>-->
+            <!--<dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-bom</artifactId>
+                <version>${spring-integration-bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>-->
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <!-- INTEGRATION Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-integration</artifactId>
+		</dependency>
+
+        <!-- For @EnableIntegrationGraphController annotation -->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-file</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jms</artifactId>
+        </dependency>
+
+
+        <!--JMS support-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+        </dependency>-->
+
+
+
+
+
+
+
+
+
+        <!-- JDBC integration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!-- Embedded Database configuration -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <!-- Web integration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+
+
+        <!--Standard Dependencies ==========================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+
+        <!-- Move to sub-module ??? -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>-->
+
+    </dependencies>
+
+    <!--=======================================================================
+        to run reports:
+        mvn site
+    ========================================================================-->
+    <reporting>
+        <plugins>
+
+            <!-- http://www.mojohaus.org/versions-maven-plugin/index.html -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+
+        </plugins>
+
+    </reporting>
+
+    <repositories>
+        <!-- required for coveralls -->
+        <!--<repository>
+            <id>noop</id>
+            <name>dummy</name>
+            <url>http://simulation.tudelft.nl/maven/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>-->
+
+        <repository>
+            <id>maven-central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <!-- required for coveralls -->
+        <!--<pluginRepository>
+            <id>noop</id>
+            <name>dummy</name>
+            <url>http://simulation.tudelft.nl/maven/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>-->
+
+        <pluginRepository>
+            <id>maven-central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+
+    <!--=======================================================================
+        to run reports:
+        mvn clean verify -PcodeQuality
+    ========================================================================-->
+        <profile>
+            <id>codeQuality</id>
+            <!--
+                Active by default. use `-P-codeQuality` to deactivate it.
+                Note the prefix `-` which disables the `codeQuality` profile
+                Combine it with other profiles using CVS. Example: `-P-codeQuality,autoInstallPackage`
+            -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!--
+                    log in color, if terminal supports ANSI escape sequences1lp
+                    [']koaq
+                    see: https://confluence.atlassian.com/clover/using-test-optimization-in-maven-170492714.html
+                  -->
+                <ansi.color>true</ansi.color>
+            </properties>
+
+            <!-- Code Quality Reporting -->
+            <reporting>
+                <plugins>
+
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <configuration>
+                            <xmlOutput>true</xmlOutput>
+                            <trace>true</trace>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>spotbugs</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <version>3.0.0</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+
+            <!-- Code Quality Execution -->
+            <build>
+                <plugins>
+
+                    <!--
+                    https://www.eclemma.org/jacoco/trunk/doc/maven.html
+                    mvn verify
+                    -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-unit-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+
+                            <!-- aggregated unit test coverage report -->
+                            <execution>
+                                <id>aggregate-reports</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                                <configuration>
+                                    <title>Maven Multi-module Coverage Demo: Coverage of Unit Tests</title>
+                                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
+                                    <dataFileExcludes>
+                                        <dataFileExclude>**/target/jacoco-it.exec</dataFileExclude>
+                                    </dataFileExcludes>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>merge-results</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>merge</goal>
+                                </goals>
+                                <configuration>
+                                    <fileSets>
+                                        <fileSet>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>
+                                                <include>**/jacoco.exec</include>
+                                            </includes>
+                                        </fileSet>
+                                    </fileSets>
+                                    <destFile>${project.build.directory}/jacoco/aggregate.exec</destFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>post-merge-report</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <dataFile>${project.build.directory}/jacoco/aggregate.exec</dataFile>
+                                    <outputDirectory>${project.build.directory}/jacoco-aggregate</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+
+
+                    <!--
+                    TODO: Need to get this to work in the overall project.
+                    https://github.com/trautonen/coveralls-maven-plugin
+
+                    to run:
+                    mvn clean verify coveralls:report
+                    mvn clean test jacoco:report coveralls:report
+                    -->
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <version>${coveralls-maven-plugin.version}</version>
+                        <configuration>
+                            <!-- @see $HOME/.m2/settings.xml for properties -->
+                            <repoToken>${COVERALLS_REPOTOKEN}</repoToken>
+                            <jacocoReports>
+                                <jacocoReport>
+                                    ${project.build.directory}/jacoco/jacoco.xml
+                                </jacocoReport>
+                            </jacocoReports>
+                        </configuration>
+                        <!-- build fails with empty SECTIONS.
+                        Disable execution until they are completed.
+                        -->
+                        <!--<executions>
+                            <execution>
+                                <id>coveralls</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>-->
+                    </plugin>
+
+                    <!--
+                    SpotBugs Static Analysis
+                    https://spotbugs.github.io/spotbugs-maven-plugin/
+                    mvn spotbugs:gui
+                    -->
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <version>${spotbugs-maven-plugin.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.github.spotbugs</groupId>
+                                <artifactId>spotbugs</artifactId>
+                                <version>${spotbugs.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <effort>Max</effort>
+                            <threshold>Low</threshold>
+                            <failOnError>true</failOnError>
+                            <!--<includeFilterFile>${session.executionRootDirectory}/spotbugs-security-include.xml</includeFilterFile>
+                            <excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>-->
+                            <xmlOutput>true</xmlOutput>
+                            <!-- Optional directory to put spotbugs xdoc xml report -->
+                            <!--<xmlOutputDirectory>target/site</xmlOutputDirectory>-->
+                            <plugins>
+                                <plugin>
+                                    <groupId>com.h3xstream.findsecbugs</groupId>
+                                    <artifactId>findsecbugs-plugin</artifactId>
+                                    <version>LATEST</version> <!-- Auto-update to the latest stable -->
+                                </plugin>
+                            </plugins>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>spotbugs</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>spotbugs</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
