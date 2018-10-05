@@ -19,11 +19,10 @@
 
     <modules>
         <module>introduction</module>
+        <module>channels</module>
     </modules>
 
     <build>
-        <plugins>
-        </plugins>
     </build>
 
 </project>

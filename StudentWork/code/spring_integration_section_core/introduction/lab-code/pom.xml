@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.springclass.integration.core</groupId>
-    <artifactId>introduction_solution</artifactId>
+    <artifactId>introduction_lab</artifactId>
     <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
-    <description>Solution: ${project.artifactId}</description>
+    <description>Lab: ${project.artifactId}</description>
 
     <parent>
         <groupId>com.springclass.integration.core</groupId>

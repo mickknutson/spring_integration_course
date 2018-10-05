@@ -4,24 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.springclass.integration.core</groupId>
-    <artifactId>introduction_solution</artifactId>
+    <artifactId>channels</artifactId>
     <version>1.0.0.RELEASE</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
-    <description>Solution: ${project.artifactId}</description>
+    <description>${project.artifactId}</description>
 
     <parent>
-        <groupId>com.springclass.integration.core</groupId>
-        <artifactId>introduction</artifactId>
+        <groupId>com.baselogic.integration.core</groupId>
+        <artifactId>spring_integration_section_core</artifactId>
         <version>1.0.0.RELEASE</version>
     </parent>
 
-    <dependencies>
-        <!-- See 'spring_integration_parent' for dependencies -->
-    </dependencies>
+    <modules>
+        <!--<module>lab-code</module>-->
+        <module>solution-code</module>
+    </modules>
 
-    <build>
-        <!-- See 'spring_integration_parent' for dependencies & plugins -->
-    </build>
 </project>

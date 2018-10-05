@@ -9,6 +9,7 @@
 
 ### *Modules in this section:*
  - **[Integration Introduction](https://github.com/mickknutson/spring_integration_course/tree/master/StudentWork/code/spring_integration_section_core/introduction)**
+ - **[Message Channels](https://github.com/mickknutson/spring_integration_course/tree/master/StudentWork/code/spring_integration_section_core/channels)**
 
 ---
 
