@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.config.EnableIntegrationManagement;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 
@@ -18,8 +17,6 @@ import java.util.Arrays;
 @EnableIntegration
 @EnableIntegrationManagement
 @EnableIntegrationGraphController(allowedOrigins = "http://localhost:8080")
-
-//@EnableWebMvc
 
 @Slf4j
 @SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})

@@ -64,6 +64,12 @@
 <!--        <module>spring_batch_section_scaling</module>-->
     </modules>
 
+    <scm>
+        <connection>scm:git:scm:git:git://github.com/mickknutson/spring_integration_course.git</connection>
+        <developerConnection>scm:git:scm:git:ssh://git@github.com:mickknutson/spring_integration_course.git</developerConnection>
+        <url>https://github.com/mickknutson/spring_integration_course</url>
+    </scm>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -128,23 +134,6 @@
                 <scope>import</scope>
             </dependency>
 
-
-            <!--<dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>5.1.0.RELEASE</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>-->
-            <!--<dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-bom</artifactId>
-                <version>${spring-integration-bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>-->
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -155,6 +144,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- For @EnableIntegrationGraphController annotation -->
         <dependency>
@@ -167,7 +169,7 @@
             <artifactId>spring-integration-file</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-xml</artifactId>
         </dependency>
@@ -179,18 +181,18 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <!--JMS support-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.apache.activemq</groupId>
@@ -385,6 +387,9 @@
     <!--=======================================================================
         to run reports:
         mvn clean verify -PcodeQuality
+
+        to run SITE reports:
+        mvn clean site:site -PcodeQuality
     ========================================================================-->
         <profile>
             <id>codeQuality</id>
@@ -410,6 +415,12 @@
                 <plugins>
 
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>LATEST</version>
+                    </plugin>
+
+                    <plugin>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs-maven-plugin</artifactId>
                         <configuration>
@@ -431,6 +442,7 @@
                         <version>3.0.0</version>
                     </plugin>
                 </plugins>
+
             </reporting>
 
             <!-- Code Quality Execution -->
@@ -575,7 +587,7 @@
                             <excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>-->
                             <xmlOutput>true</xmlOutput>
                             <!-- Optional directory to put spotbugs xdoc xml report -->
-                            <!--<xmlOutputDirectory>target/site</xmlOutputDirectory>-->
+                            <xmlOutputDirectory>target/site</xmlOutputDirectory>
                             <plugins>
                                 <plugin>
                                     <groupId>com.h3xstream.findsecbugs</groupId>

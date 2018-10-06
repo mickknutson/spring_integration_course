@@ -1,17 +1,14 @@
 package io.baselogic.integration.common;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
-@SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
+
 public class TestUtils {
 
 
@@ -37,13 +34,10 @@ public class TestUtils {
 
 
 
-    public List<String> getMovieTitles(int limit)
+    public void getLinesFromFile()
             throws IOException {
 
         InputStream resource = movies.getInputStream();
-
-        List<String> titles = new ArrayList<>();
-
 
         try (
                 BufferedReader reader = new BufferedReader(
@@ -52,15 +46,12 @@ public class TestUtils {
 
             //   title,release_date,tagline
 
-            titles = reader.lines().skip(1)
+            List<String> titles = reader.lines().skip(1)
                     .map(m -> m.substring(0, m.indexOf(',')) )
-                    .limit(limit)
                     .collect(Collectors.toList());
 
             titles.forEach(System.out::println);
         }
-
-        return titles;
     }
 
     /*
@@ -90,4 +81,4 @@ public class TestUtils {
 
 
 
-} // The End...
+}

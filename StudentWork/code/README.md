@@ -20,6 +20,8 @@
 
 **The code in this course is based on Maven, Java and Spring Boot 2**
 
+[Integration testing reference](https://docs.spring.io/spring-integration/docs/current/reference/html/testing.html)
+
 ---
 
 ### Lomok annotation processor is used. You can setup your IDE specifically:
@@ -32,11 +34,25 @@
 
 Channels:
 
-    DirectChannel
+    DirectChannel (setFailover)
+
+    PollableChannel
+
     PriorityChannel
     QueueChannel
+
     ExecutorChannel
     PublishSubscribeChannel
+    FixedSubscriberChannel
+    RendezvousChannel
+
+    AbstractMessageChannel
+
+    ChannelPurger
+
+    NullChannel ??
+
+    IntegrationFlowBuilder
 
 Sending Messages
 
@@ -45,19 +61,40 @@ Sending Messages
     @MessageEndpoint
     @InboundChannelAdapter
     @ServiceActivator
+    @IdempotentReceiver ??
 
 
-What is this for?
+Consumers
 
-    @IntegrationComponentScan ??
+    PollingConsumer
+    EventDrivenConsumer
 
-@Transformer
+
+
+Other operations to implement:
+
+    @UseSpelInvoker
+    @Transformer
+    @Splitter
+    @Aggregator
+    @Router
+    @Filter
+
+    @Gateway
+    @MessagingGateway
+
+    @BridgeTo
+    @BridgeFrom
+
+
 
 What is this for:
 
     @Poller
 
+Need to implement for Testing:
 
+    MockIntegrationContext
 
 
 
