@@ -4,12 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.BridgeFrom;
+import org.springframework.integration.annotation.InboundChannelAdapter;
+import org.springframework.integration.annotation.Poller;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.core.MessageSource;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageChannels;
+import org.springframework.integration.file.FileReadingMessageSource;
+import org.springframework.integration.file.filters.SimplePatternFileListFilter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.io.File;
 
 @Configuration
 @Slf4j
@@ -61,7 +68,6 @@ public class PublishSubscribeChannelConfig {
     public QueueChannel outputChannelB() {
         return MessageChannels.queue(5).get();
     }
-
 
 
 
