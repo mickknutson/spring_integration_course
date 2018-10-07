@@ -20,7 +20,7 @@ public class EchoService {
      * @param inboundPayload
      */
     @ServiceActivator(inputChannel = "inputChannel",
-            outputChannel = "outputChannel",
+            outputChannel = "publishSubscribeChannel",
             sendTimeout = SEND_TIMEOUT
     )
     public String echo(String inboundPayload) {

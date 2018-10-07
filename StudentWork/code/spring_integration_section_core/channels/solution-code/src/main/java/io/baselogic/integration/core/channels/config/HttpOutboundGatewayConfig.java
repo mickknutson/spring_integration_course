@@ -6,12 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.integration.http.dsl.Http;
-import org.springframework.integration.http.inbound.HttpRequestHandlingMessagingGateway;
-import org.springframework.integration.http.inbound.RequestMapping;
 import org.springframework.integration.http.outbound.HttpRequestExecutingMessageHandler;
 import org.springframework.messaging.PollableChannel;
 
@@ -44,7 +43,7 @@ public class HttpOutboundGatewayConfig {
      * @return DirectChannel
      */
     @Bean
-    public PollableChannel httpOutboundResponseChannel() {
+    public QueueChannel httpOutboundResponseChannel() {
         return MessageChannels.queue(5).get();
     }
 

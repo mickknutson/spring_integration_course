@@ -36,17 +36,10 @@ Channels:
 
     DirectChannel (setFailover)
 
-    PollableChannel
-
-    PriorityChannel
-    QueueChannel
-
     ExecutorChannel
     PublishSubscribeChannel
     FixedSubscriberChannel
     RendezvousChannel
-
-    AbstractMessageChannel
 
     ChannelPurger
 
@@ -67,8 +60,10 @@ Sending Messages
 Consumers
 
     PollingConsumer
+
     EventDrivenConsumer
 
+SourcePollingChannelAdapter
 
 
 Other operations to implement:

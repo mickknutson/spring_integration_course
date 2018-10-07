@@ -21,6 +21,8 @@
         <module>introduction</module>
         <module>channels</module>
         <module>endpoints</module>
+        <module>adapters</module>
+        <module>gateways</module>
     </modules>
 
     <build>

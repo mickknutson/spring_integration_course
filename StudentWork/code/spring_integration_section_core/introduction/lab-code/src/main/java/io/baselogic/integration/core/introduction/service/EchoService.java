@@ -1,7 +1,6 @@
 package io.baselogic.integration.core.introduction.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.integration.annotation.EndpointId;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Service;
 

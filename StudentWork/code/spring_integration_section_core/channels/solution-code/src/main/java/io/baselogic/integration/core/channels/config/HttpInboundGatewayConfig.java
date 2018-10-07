@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.MessageChannels;
@@ -57,7 +58,7 @@ public class HttpInboundGatewayConfig {
      * @return PollableChannel
      */
     @Bean
-    public PollableChannel httpInboundResponseChannel() {
+    public QueueChannel httpInboundResponseChannel() {
         return MessageChannels.queue(5).get();
     }
 
