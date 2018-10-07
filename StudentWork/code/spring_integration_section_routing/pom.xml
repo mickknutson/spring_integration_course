@@ -19,6 +19,8 @@
 
     <modules>
         <module>routers</module>
+        <module>filters</module>
+        <module>splitter</module>
     </modules>
 
     <build>

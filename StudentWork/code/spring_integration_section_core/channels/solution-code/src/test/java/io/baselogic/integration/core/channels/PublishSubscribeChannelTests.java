@@ -56,7 +56,10 @@ public class PublishSubscribeChannelTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
+        // Reset the channel stats
+        pubSubInputChannel.reset();
+        outputChannelA.reset();
+        outputChannelB.reset();
         publishSubscribeChannel.reset();
     }
 
@@ -83,8 +86,8 @@ public class PublishSubscribeChannelTests {
         messagingTemplate.send(pubSubInputChannel, message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> resultA = (GenericMessage<String>) outputChannelA.receive(200);
-        GenericMessage<String> resultB = (GenericMessage<String>) outputChannelB.receive(200);
+        GenericMessage<String> resultA = (GenericMessage<String>) outputChannelA.receive(1_000);
+        GenericMessage<String> resultB = (GenericMessage<String>) outputChannelB.receive(1_000);
 
         log.info("resultA: {}", resultA);
         log.info("resultB: {}", resultB);

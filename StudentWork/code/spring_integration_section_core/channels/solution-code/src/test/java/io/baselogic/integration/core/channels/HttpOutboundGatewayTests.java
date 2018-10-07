@@ -43,8 +43,9 @@ public class HttpOutboundGatewayTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        httpOutboundResponseChannel.clear();
+        // Reset the channel stats
+        httpOutboundRequestChannel.reset();
+        httpOutboundResponseChannel.reset();
     }
 
 
@@ -66,7 +67,7 @@ public class HttpOutboundGatewayTests {
         messagingTemplate.send(httpOutboundRequestChannel, message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> result = (GenericMessage<String>) httpOutboundResponseChannel.receive(200);
+        GenericMessage<String> result = (GenericMessage<String>) httpOutboundResponseChannel.receive(1_000);
 
         log.info(LINE);
         log.info("==> Result: [{}]", result.getPayload());

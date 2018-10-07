@@ -66,7 +66,7 @@ public class EchoTests {
         inputChannel.send(message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> title = (GenericMessage<String>) outputChannel.receive(200);
+        GenericMessage<String> title = (GenericMessage<String>) outputChannel.receive(1_000);
 
         log.info("==> Result: [{}]", title.getPayload());
 
@@ -87,7 +87,7 @@ public class EchoTests {
         template.send(outputChannel, message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> title = (GenericMessage<String>) outputChannel.receive(200);
+        GenericMessage<String> title = (GenericMessage<String>) outputChannel.receive(1_000);
 
         log.info("==> Result: [{}]", title.getPayload());
 

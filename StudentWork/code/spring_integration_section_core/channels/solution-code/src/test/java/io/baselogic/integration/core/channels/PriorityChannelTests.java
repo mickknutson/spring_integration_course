@@ -47,7 +47,7 @@ public class PriorityChannelTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
+        // Reset the channel stats
         priorityChannel.reset();
     }
 
@@ -75,7 +75,7 @@ public class PriorityChannelTests {
         for(int i = 0; i < titles.size(); i++){
 
             // Receive message with a 200ms timeout
-            GenericMessage<String> result = (GenericMessage<String>) priorityChannel.receive(200);
+            GenericMessage<String> result = (GenericMessage<String>) priorityChannel.receive(1_000);
 
             log.info("==> Result: [{}]", result.getPayload());
         }

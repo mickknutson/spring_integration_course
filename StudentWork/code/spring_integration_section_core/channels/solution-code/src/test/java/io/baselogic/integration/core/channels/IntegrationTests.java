@@ -49,8 +49,9 @@ public class IntegrationTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        outputChannel.clear();
+        // Reset the channel stats
+        inputChannel.reset();
+        outputChannel.reset();
     }
 
 
@@ -74,7 +75,7 @@ public class IntegrationTests {
         messagingTemplate.send(inputChannel, message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(200);
+        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(1_000);
 
 
         assertThat(result.getPayload()).contains("Echo: [We have Integration]");
@@ -107,8 +108,8 @@ public class IntegrationTests {
         // Send message...
         messagingTemplate.send(outputChannel, newMessage);
 
-        // Receive message with a 200ms timeout
-        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(200);
+        // Receive message with a 1000ms timeout
+        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(1_000);
 
         log.info(LINE);
         log.info("==> Result: [{}]", result.getPayload());
@@ -161,7 +162,7 @@ public class IntegrationTests {
         for(int i = 0; i < data.length; i++){
 
             // Receive message with a 200ms timeout
-            GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(200);
+            GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(1_000);
 
             log.info("==> Result: [{}]", result.getPayload());
             assertThat(result.getPayload()).contains(data[i]);

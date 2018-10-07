@@ -2,21 +2,18 @@ package io.baselogic.integration.routing.routers.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.channel.PriorityChannel;
 import org.springframework.integration.channel.QueueChannel;
-import org.springframework.integration.channel.interceptor.WireTap;
+import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageChannels;
-import org.springframework.integration.dsl.Pollers;
-import org.springframework.integration.handler.LoggingHandler;
-import org.springframework.integration.scheduling.PollerMetadata;
+import org.springframework.integration.router.HeaderValueRouter;
+import org.springframework.integration.router.PayloadTypeRouter;
 
-@Configuration
+//@Configuration
 @Slf4j
 @SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
-public class MessagingGatewayConfig {
+public class HeaderValueRouterConfig {
 
 
 
@@ -24,22 +21,35 @@ public class MessagingGatewayConfig {
     // FLOWS
 
 
+    //---------------------------------------------------------------------------//
+    // SERVICES
+
+    @Bean
+    @ServiceActivator(inputChannel = "routingChannel")
+    public HeaderValueRouter router() {
+        HeaderValueRouter router = new HeaderValueRouter("routingHeader");
+        router.setChannelMapping("headerValueA", "channelA");
+        router.setChannelMapping("headerValueB", "channelB");
+        return router;
+    }
+
+
 
     //---------------------------------------------------------------------------//
     // CHANNELS
 
     @Bean
-    public DirectChannel inputChannel() {
+    public DirectChannel routingChannel() {
         return MessageChannels.direct().get();
     }
 
     @Bean
-    public DirectChannel inputUpperCaseChannel() {
-        return MessageChannels.direct().get();
+    public QueueChannel channelA() {
+        return MessageChannels.queue(5).get();
     }
 
     @Bean
-    public QueueChannel outputChannel() {
+    public QueueChannel channelB() {
         return MessageChannels.queue(5).get();
     }
 

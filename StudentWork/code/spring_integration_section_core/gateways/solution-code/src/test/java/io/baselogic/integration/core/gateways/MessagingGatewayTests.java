@@ -107,7 +107,7 @@ public class MessagingGatewayTests {
         log.info(LINE);
 
         String result = gateway.echoUpperCase("We have Integration");
-//        outputChannel.receive(200);
+//        outputChannel.receive(1_000);
 
         log.info(LINE);
         log.info("==> Result: [{}]", result);

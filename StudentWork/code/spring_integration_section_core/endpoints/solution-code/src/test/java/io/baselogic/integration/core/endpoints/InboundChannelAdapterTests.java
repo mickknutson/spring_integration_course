@@ -83,11 +83,11 @@ public class InboundChannelAdapterTests {
 
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(200);
+        GenericMessage<String> result = (GenericMessage<String>) outputChannel.receive(1_000);
 
-        outputChannel.receive(200);
-        outputChannel.receive(200);
-        outputChannel.receive(200);
+        outputChannel.receive(1_000);
+        outputChannel.receive(1_000);
+        outputChannel.receive(1_000);
 
         log.info(LINE);
 

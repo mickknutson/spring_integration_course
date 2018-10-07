@@ -53,8 +53,10 @@ public class IntegrationTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        subscribableOutputChannel.clear();
+        // Reset the channel stats
+        subscribableInputChannel.reset();
+        subscribableOutputChannel.reset();
+        alternateDirectChannel.reset();
     }
 
 

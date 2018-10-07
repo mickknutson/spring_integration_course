@@ -38,8 +38,8 @@ public class HttpInboundGatewayTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        httpInboundResponseChannel.clear();
+        // Reset the channel stats
+        httpInboundResponseChannel.reset();
     }
 
 
