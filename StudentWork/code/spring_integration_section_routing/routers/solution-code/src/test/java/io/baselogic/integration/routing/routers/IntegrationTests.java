@@ -1,4 +1,4 @@
-package io.baselogic.integration.core.gateways;
+package io.baselogic.integration.routing.routers;
 
 import io.baselogic.integration.Application;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,10 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -24,59 +28,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringIntegrationTest
 @Slf4j
 @SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
-public class HttpOutboundGatewayTests {
+public class IntegrationTests {
 
 
     private static final String LINE = "+" + new String(new char[40]).replace('\0', '-') + "+";
+
 
     private MessagingTemplate messagingTemplate = new MessagingTemplate();
 
     @Autowired
     private MockIntegrationContext mockIntegrationContext;
 
-    @Autowired
-    private DirectChannel httpOutboundRequestChannel;
 
     @Autowired
-    private QueueChannel httpOutboundResponseChannel;
+    private DirectChannel inputChannel;
+
+    @Autowired
+    private QueueChannel outputChannel;
 
 
     @Before
     public void beforeEachTest(){
         // prepare for test
-        httpOutboundResponseChannel.clear();
+        outputChannel.clear();
     }
 
 
 
     //-----------------------------------------------------------------------//
 
+
     @Test
-    public void test_integration__send_message__httpOutboundGateway() throws Exception {
+    public void test_noop() throws Exception {
 
-        log.info(LINE);
 
-        Message<String> message = MessageBuilder.withPayload("We have HTTP Outbound Integration")
-                .setPriority(42)
-                .setHeader("customHeader", "my customHeader")
-                .setHeader("chucknorris", "Can divide by zero")
-                .build();
-
-        // Send message...
-        messagingTemplate.send(httpOutboundRequestChannel, message);
-
-        // Receive message with a 200ms timeout
-        GenericMessage<String> result = (GenericMessage<String>) httpOutboundResponseChannel.receive(1000);
-
-        log.info(LINE);
-        log.info("==> Result: [{}]", result.getPayload());
-        result.getHeaders().forEach( (k,v) -> log.info("Header [{}] = [{}]", k, v));
-
-        assertThat(result.getPayload()).contains("\"data\": \"We have HTTP Outbound Integration\"");
-
-        log.info(LINE);
     }
-
 
     //-----------------------------------------------------------------------//
 

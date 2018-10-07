@@ -3,7 +3,7 @@
 ##  *Section: Core Concepts*
 
 
-**Learn how to design and develop robust batch applications with the power of the Spring Integration framework with JavaConfig**
+**Learn how to design and develop robust integration applications with the power of the Spring Integration framework with JavaConfig**
 
 ---
 

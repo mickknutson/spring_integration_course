@@ -97,6 +97,47 @@ jobs:
           working_directory: ./StudentWork/code/spring_integration_section_core
 
 
+
+##---------------------------------------------------------------------------##
+  build_routing:
+
+    working_directory: ~/tmp/workspace
+
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      BASE_DIR: "./StudentWork/code"
+        
+#    # Not sure if parallelism will work well for this project
+#    parallelism: 4
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          BASE_DIR: "./StudentWork/code"
+          _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+
+    steps:
+      - checkout
+      - run:
+          name: Initialize
+          command: |
+            set -xu
+            echo $CIRCLE_WORKING_DIRECTORY
+            mkdir -p ~/junit/
+#      - attach_workspace:
+#          at: /root/project
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "./StudentWork/code/pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Verify the SECTION ROUTING module
+          command: mvn verify
+          working_directory: ./StudentWork/code/spring_integration_section_routing
+
+
 ##---------------------------------------------------------------------------##
 ##---------------------------------------------------------------------------##
 ##---------------------------------------------------------------------------##
@@ -188,9 +229,9 @@ workflows:
       - build_core:
           requires:
             - build
-#      - build_inputs:
-#          requires:
-#            - build
+      - build_routing:
+          requires:
+            - build
 #      - build_outputs:
 #          requires:
 #            - build
@@ -211,7 +252,7 @@ workflows:
       - end_course:
           requires:
             - build_core
-#            - build_inputs
+            - build_routing
 #            - build_outputs
 #            - build_flows
 #            - build_orchestration

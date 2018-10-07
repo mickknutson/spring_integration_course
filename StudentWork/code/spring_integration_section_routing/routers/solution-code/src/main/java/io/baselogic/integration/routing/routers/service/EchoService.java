@@ -1,4 +1,4 @@
-package io.baselogic.integration.core.gateways.service;
+package io.baselogic.integration.routing.routers.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.annotation.ServiceActivator;

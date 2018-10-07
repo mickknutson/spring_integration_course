@@ -1,4 +1,4 @@
-package io.baselogic.integration.core.gateways;
+package io.baselogic.integration.routing.routers;
 
 import io.baselogic.integration.Application;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.support.MessageBuilder;
@@ -18,10 +17,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -29,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringIntegrationTest
 @Slf4j
 @SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
-public class PublishSubscribeChannelTests {
+public class HttpOutboundGatewayTests {
 
 
     private static final String LINE = "+" + new String(new char[40]).replace('\0', '-') + "+";
@@ -39,71 +34,48 @@ public class PublishSubscribeChannelTests {
     @Autowired
     private MockIntegrationContext mockIntegrationContext;
 
+    @Autowired
+    private DirectChannel httpOutboundRequestChannel;
 
     @Autowired
-    private DirectChannel pubSubInputChannel;
-
-    @Autowired
-    private QueueChannel outputChannelA;
-
-    @Autowired
-    private QueueChannel outputChannelB;
-
-    @Autowired
-    private PublishSubscribeChannel publishSubscribeChannel;
-
+    private QueueChannel httpOutboundResponseChannel;
 
 
     @Before
     public void beforeEachTest(){
         // prepare for test
-        publishSubscribeChannel.reset();
+        httpOutboundResponseChannel.clear();
     }
 
 
 
     //-----------------------------------------------------------------------//
 
-
     @Test
-    public void test_integration__send_message__publishSubscribeChannel() throws Exception {
+    public void test_integration__send_message__httpOutboundGateway() throws Exception {
 
         log.info(LINE);
 
-
-        long expirationLong = Date.from(Instant.now().plus(1, ChronoUnit.DAYS)).getTime();
-
-        Message<String> message = MessageBuilder.withPayload("We have PubSub Integration")
-                .setExpirationDate(expirationLong)
+        Message<String> message = MessageBuilder.withPayload("We have HTTP Outbound Integration")
                 .setPriority(42)
                 .setHeader("customHeader", "my customHeader")
+                .setHeader("chucknorris", "Can divide by zero")
                 .build();
 
         // Send message...
-        messagingTemplate.send(pubSubInputChannel, message);
+        messagingTemplate.send(httpOutboundRequestChannel, message);
 
         // Receive message with a 200ms timeout
-        GenericMessage<String> resultA = (GenericMessage<String>) outputChannelA.receive(200);
-        GenericMessage<String> resultB = (GenericMessage<String>) outputChannelB.receive(200);
+        GenericMessage<String> result = (GenericMessage<String>) httpOutboundResponseChannel.receive(1000);
 
-        log.info("resultA: {}", resultA);
-        log.info("resultB: {}", resultB);
+        log.info(LINE);
+        log.info("==> Result: [{}]", result.getPayload());
+        result.getHeaders().forEach( (k,v) -> log.info("Header [{}] = [{}]", k, v));
 
-        log.info("publishSubscribeChannel subscribers: {}", publishSubscribeChannel.getSubscriberCount());
-        log.info("pubSubInputChannel subscribers: {}", pubSubInputChannel.getSubscriberCount());
-        log.info("pubSubInputChannel messages sent: {}", pubSubInputChannel.getSendCount());
-        log.info("outputChannelA.getReceiveCount(): {}", outputChannelA.getReceiveCount());
-        log.info("outputChannelB.getReceiveCount(): {}", outputChannelB.getReceiveCount());
-
-        assertThat(pubSubInputChannel.getSendCount()).isEqualTo(1);
-
-        assertThat(outputChannelA.getReceiveCount()).isEqualTo(1);
-        assertThat(outputChannelB.getReceiveCount()).isEqualTo(1);
-
+        assertThat(result.getPayload()).contains("\"data\": \"We have HTTP Outbound Integration\"");
 
         log.info(LINE);
     }
-
 
 
     //-----------------------------------------------------------------------//

@@ -3,25 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.baselogic.integration.routing</groupId>
-    <artifactId>spring_integration_section_routing</artifactId>
+    <groupId>com.springclass.integration.routing</groupId>
+    <artifactId>routers</artifactId>
     <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
 
-    <name>INTEGRATION SECTION ROUTING</name>
-    <description>${project.name} - ${project.artifactId}</description>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
 
     <parent>
-        <groupId>com.baselogic.integration</groupId>
-        <artifactId>spring_integration_parent</artifactId>
+        <groupId>com.baselogic.integration.routing</groupId>
+        <artifactId>spring_integration_section_routing</artifactId>
         <version>1.0.0.RELEASE</version>
     </parent>
 
     <modules>
-        <module>routers</module>
+        <!--<module>lab-code</module>-->
+        <module>solution-code</module>
     </modules>
-
-    <build>
-    </build>
 
 </project>

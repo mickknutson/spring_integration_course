@@ -1,4 +1,4 @@
-package io.baselogic.integration.core.gateways;
+package io.baselogic.integration.routing.routers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;

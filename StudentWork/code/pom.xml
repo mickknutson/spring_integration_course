@@ -55,7 +55,7 @@
 
     <modules>
         <module>spring_integration_section_core</module>
-<!--        <module>spring_batch_section_inputs</module>-->
+        <module>spring_integration_section_routing</module>
 <!--        <module>spring_batch_section_outputs</module>-->
 <!--        <module>spring_batch_section_flow</module>-->
 <!--        <module>spring_batch_section_processing</module>-->
@@ -176,9 +176,9 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
-        </dependency>
+        </dependency>-->
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
         </dependency>-->
