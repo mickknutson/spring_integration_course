@@ -5,7 +5,7 @@
 ###  *Module: Adapters*
 
 
-**Learning the Channel Adapters**
+**Learning the Channel Adapters and Bridging**
 
 ---
 

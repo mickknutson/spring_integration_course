@@ -2,6 +2,7 @@ package io.baselogic.integration.core.adapters;
 
 
 import io.baselogic.integration.Application;
+import io.baselogic.integration.core.adapters.handlers.TextMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +15,11 @@ import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.test.context.MockIntegrationContext;
 import org.springframework.integration.test.context.SpringIntegrationTest;
+import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,7 +64,7 @@ public class InboundChannelAdapterTests {
 
 
     @Test
-    public void test_integration__send_message__withPayload() throws Exception {
+    public void test_integration__send_message__InboundChannelAdapter() throws Exception {
 
         log.info(LINE);
 

@@ -3,16 +3,19 @@ package io.baselogic.integration.core.adapters.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.annotation.BridgeFrom;
 import org.springframework.integration.annotation.BridgeTo;
 import org.springframework.integration.annotation.InboundChannelAdapter;
 import org.springframework.integration.annotation.Poller;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.channel.RendezvousChannel;
 import org.springframework.integration.core.MessageSource;
 import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.scheduling.PollerMetadata;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.util.Date;
@@ -51,6 +54,11 @@ public class InboundChannelAdapterConfig {
     }
 
 
+    /**
+     * Setting the fixedRate to 100ms for Unit testing, so messages will be sent asap.
+     *
+     * @return
+     */
     @Bean
     @InboundChannelAdapter(
             channel = "inputChannel",

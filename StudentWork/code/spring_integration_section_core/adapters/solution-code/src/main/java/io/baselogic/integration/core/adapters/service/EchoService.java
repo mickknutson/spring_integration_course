@@ -21,7 +21,9 @@ public class EchoService {
      */
     @ServiceActivator(inputChannel = "inputChannel",
             outputChannel = "publishSubscribeChannel",
-            sendTimeout = SEND_TIMEOUT
+            sendTimeout = SEND_TIMEOUT,
+            requiresReply = "true",
+            async = "true"
     )
     public String echo(String inboundPayload) {
 

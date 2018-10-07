@@ -9,10 +9,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -37,6 +39,12 @@ public class IntegrationTests {
     private DirectChannel subscribableInputChannel;
 
     @Autowired
+    private QueueChannel subscribableOutputChannel;
+
+    @Autowired
+    private DirectChannel alternateDirectChannel;
+
+    @Autowired
     private TextMessageHandler textMessageHandler;
 
 
@@ -46,6 +54,7 @@ public class IntegrationTests {
     @Before
     public void beforeEachTest(){
         // prepare for test
+        subscribableOutputChannel.clear();
     }
 
 
@@ -54,14 +63,15 @@ public class IntegrationTests {
 
 
     @Test
-    public void test_integration__event_driven_consumer() throws Exception {
+    public void test_integration__bridging() throws Exception {
 
         log.info(LINE);
 
         subscribableInputChannel.subscribe(textMessageHandler);
 
-//        EventDrivenConsumer consumer = new EventDrivenConsumer(subscribableInputChannel, textMessageHandler);
-
+        alternateDirectChannel.subscribe(
+                (message) -> log.info("--> Message: {}", message)
+        );
 
         Message<String> message = MessageBuilder.withPayload("We have Integration - " + new Date())
                 .build();
@@ -69,14 +79,24 @@ public class IntegrationTests {
         // Send message...
         messagingTemplate.send(subscribableInputChannel, message);
 
+        log.info(LINE);
 
         log.info("subscribableInputChannel.getSendCount: {}", subscribableInputChannel.getSendCount());
-        log.info("subscribableInputChannel.getSendErrorCount: {}", subscribableInputChannel.getSendErrorCount());
-
 
         log.info(LINE);
 
-        assertThat(subscribableInputChannel.getSendCount()).isGreaterThanOrEqualTo(1);
+        log.info("alternateDirectChannel.getSendCount: {}", alternateDirectChannel.getSendCount());
+
+        log.info(LINE);
+
+        log.info("subscribableOutputChannel.getSendCount: {}", subscribableOutputChannel.getSendCount());
+        log.info("subscribableOutputChannel.getReceiveCount: {}", subscribableOutputChannel.getReceiveCount());
+
+        log.info(LINE);
+
+        assertThat(subscribableInputChannel.getSendCount()).isEqualTo(1);
+        assertThat(subscribableOutputChannel.getReceiveCount()).isEqualTo(1);
+        assertThat(alternateDirectChannel.getSendCount()).isEqualTo(1);
 
     }
 

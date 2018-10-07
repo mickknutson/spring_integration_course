@@ -32,6 +32,10 @@
 ## TO REVISIT
 
 
+### **Add section for DSL using:**
+
+    IntegrationFlow
+
 Channels:
 
     DirectChannel (setFailover)
@@ -83,9 +87,6 @@ Other operations to implement:
 
 
 
-What is this for:
-
-    @Poller
 
 Need to implement for Testing:
 
