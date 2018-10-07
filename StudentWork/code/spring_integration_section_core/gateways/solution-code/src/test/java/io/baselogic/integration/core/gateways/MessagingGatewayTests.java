@@ -64,8 +64,10 @@ public class MessagingGatewayTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        outputChannel.clear();
+        // Reset the channel stats
+        inputChannel.reset();
+        outputChannel.reset();
+        inputUpperCaseChannel.reset();
     }
 
 

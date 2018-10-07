@@ -59,8 +59,8 @@ public class InboundChannelAdapterTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        outputChannel.clear();
+        // Reset the channel stats
+        inputChannel.reset();
         outputChannel.reset();
         publishSubscribeChannel.reset();
     }
@@ -112,9 +112,8 @@ public class InboundChannelAdapterTests {
 
         log.info(LINE);
 
-        assertThat(inputChannel.getSendCount()).isGreaterThan(3);
-
-        assertThat(outputChannel.getReceiveCount()).isGreaterThan(3);
+        assertThat(inputChannel.getSendCount()).isGreaterThan(2);
+        assertThat(outputChannel.getReceiveCount()).isGreaterThan(2);
 
     }
 

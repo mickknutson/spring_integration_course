@@ -49,8 +49,9 @@ public class IntegrationTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
-        outputChannel.clear();
+        // Reset the channel stats
+        inputChannel.reset();
+        outputChannel.reset();
     }
 
 

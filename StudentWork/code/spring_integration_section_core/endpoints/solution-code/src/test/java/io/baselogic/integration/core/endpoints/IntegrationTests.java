@@ -56,7 +56,8 @@ public class IntegrationTests {
 
     @Before
     public void beforeEachTest(){
-        // prepare for test
+        // Reset the channel stats
+        subscribableInputChannel.reset();
     }
 
 
