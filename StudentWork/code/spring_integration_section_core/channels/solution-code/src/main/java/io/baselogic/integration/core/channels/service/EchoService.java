@@ -12,7 +12,8 @@ public class EchoService {
     public static final String SEND_TIMEOUT = "1000";
 
     /**
-     * Converted from:
+     * Analog to:
+     *
      * <service-activator input-channel="inputChannel"
      * 	                   output-channel="outputChannel"
      * 	                   ref="echoService"

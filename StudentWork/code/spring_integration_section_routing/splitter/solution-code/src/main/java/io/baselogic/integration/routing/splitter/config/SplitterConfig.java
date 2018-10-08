@@ -1,6 +1,6 @@
 package io.baselogic.integration.routing.splitter.config;
 
-import io.baselogic.integration.routing.splitter.filter.CustomFilter;
+import io.baselogic.integration.routing.splitter.splitter.CustomSplitter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.channel.DirectChannel;
@@ -10,8 +10,7 @@ import org.springframework.integration.dsl.MessageChannels;
 //@Configuration
 @Slf4j
 @SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
-public class FiltersConfig {
-
+public class SplitterConfig {
 
 
     //---------------------------------------------------------------------------//
@@ -22,10 +21,9 @@ public class FiltersConfig {
     //---------------------------------------------------------------------------//
     // SERVICES
 
-
     @Bean
-    public CustomFilter customFilter(){
-        return new CustomFilter();
+    public CustomSplitter CustomSplitter(){
+        return new CustomSplitter();
     }
 
 
@@ -33,18 +31,14 @@ public class FiltersConfig {
     // CHANNELS
 
     @Bean
-    public DirectChannel inputChannel() {
+    public DirectChannel inputSplitterChannel() {
         return MessageChannels.direct().get();
     }
 
     @Bean
-    public QueueChannel outputChannel() {
-        return MessageChannels.queue(5).get();
+    public QueueChannel outputSplitterChannel() {
+        return MessageChannels.queue(500).get();
     }
 
-    @Bean
-    public QueueChannel discardChannel() {
-        return MessageChannels.queue(5).get();
-    }
 
 } // The End...

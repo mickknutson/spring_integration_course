@@ -21,6 +21,8 @@
         <module>routers</module>
         <module>filters</module>
         <module>splitter</module>
+        <module>aggregator</module>
+        <module>file_handling</module>
     </modules>
 
     <build>
